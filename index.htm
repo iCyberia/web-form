@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Call Driver 2.0</title>
+
+  <!-- style sheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/png" href="i/favicon.png">
+
+</head>
+<body>
+  <!-- Mobile header with menu toggle button -->
+  <header class="mobile-header">
+    <button id="menu-toggle" aria-label="Open menu">
+      <span class="menu-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+    </button>
+  </header>
+  <!-- Sidebar header for wide screens -->
+  <div class="container">
+    <nav class="sidebar">
+        <ul class="menu">
+          <li class="menu-header">Menu</li>
+          <li id="involved-parties-statement">
+            <a href="#" data-page="involved-parties-statement" class="menu-item nav-link">Involved Parties Statement</a>
+          </li>
+          <li id="eclidrsa">
+            <a href="#" data-page="eclidrsa" class="menu-item nav-link">ECLIDRSA</a>
+          </li>
+          <li id="estatus">
+            <a href="#" class="has-submenu menu-item">
+              <span class="arrow">&#9662;</span> E-Status
+            </a>
+            <ul class="submenu">
+              <li><a href="#" class="menu-item">E-Status ECLIDRSA</a></li>
+              <li><a href="#" class="menu-item">E-Status Statement</a></li>
+            </ul>
+          </li>
+          <li id="pd2-templates">
+            <a href="#" class="has-submenu menu-item">
+              <span class="arrow">&#9662;</span> PD2 Templates
+            </a>
+            <ul class="submenu">
+              <li><a href="#" class="menu-item">Coverage Issue (Denial)</a></li>
+              <li><a href="#" class="menu-item">Liability Analysis</a></li>
+              <li><a href="#" class="menu-item">Coverage Clear</a></li>
+              <li><a href="#" class="menu-item">Coverage/3rd Party Pymt Summary</a></li>
+              <li><a href="#" class="menu-item">Inbound PD Subro</a></li>
+              <li><a href="#" class="menu-item">Police Report Review</a></li>
+              <li><a href="#" class="menu-item">Rental/Transportation Expense</a></li>
+              <li><a href="#" class="menu-item">Early Settlement Resolution</a></li>
+            </ul>
+          </li>
+          <li id="fire-theft">
+            <a href="#" class="has-submenu menu-item">
+              <span class="arrow">&#9662;</span> Fire/Theft
+            </a>
+            <ul class="submenu">
+              <li><a href="#" class="menu-item">Fire</a></li>
+              <li><a href="#" class="menu-item">Fire No Comp</a></li>
+              <li><a href="#" class="menu-item">Theft</a></li>
+              <li><a href="#" class="menu-item">Theft No Comp</a></li>
+            </ul>
+          </li>
+          <li id="pip-mp">
+            <a href="#" class="has-submenu menu-item">
+              <span class="arrow">&#9662;</span> PIP/MP
+            </a>
+            <ul class="submenu">
+              <li><a href="#" class="menu-item">PIP Initial Coverage Review (PIP/MP)</a></li>
+              <li><a href="#" class="menu-item">PIP Injured Party</a></li>
+              <li><a href="#" class="menu-item">30 Day Diary</a></li>
+              <li><a href="#" class="menu-item">627 Disclosure</a></li>
+              <li><a href="#" class="menu-item">No Longer Rep</a></li>
+              <li><a href="#" class="menu-item">Police Report</a></li>
+              <li><a href="#" class="menu-item">SIU Review</a></li>
+              <li><a href="#" class="menu-item">IOT Received</a></li>
+              <li><a href="#" class="menu-item">IME Requested</a></li>
+              <li><a href="#" class="menu-item">IME No Show</a></li>
+              <li><a href="#" class="menu-item">Closing (PIP/MP)</a></li>
+            </ul>
+          </li>
+          <li id="adverse-subro">
+            <a href="#" class="has-submenu menu-item">
+              <span class="arrow">&#9662;</span> Adverse Subro
+            </a>
+            <ul class="submenu">
+              <li><a href="#" class="menu-item">New Claim Review</a></li>
+              <li><a href="#" class="menu-item">Check Auth Request</a></li>
+              <li><a href="#" class="menu-item">Adverse Subro / Payment Summary</a></li>
+            </ul>
+          </li>
+            <li id="dark-mode-toggle"><a href="#" class="menu-item">Dark Mode</a></li>
+        </ul>
+      </nav>
+
+      <!-- main content -->
+    <main class="content">
+
+      <!--  logo -->
+      <div class="header-svg">
+        
+      </div>
+
+      <!-- <h1>Welcome</h1>
+      <p>Lorem ipsum dolor sit amet -->
+
+        <div id="" >
+          <form id="modern-form" >
+            <div id="main-content"></div>
+          </form>
+        </div>
+        
+
+      </p>
+    </main>
+  </div>
+  
+  <!-- determines which set of questions is loaded -->
+  <script src="templates/home.js" defer></script>
+  
+  <!-- load js here -->
+    <script src="js/script.js"></script>
+    <script src="js/dynamic-followups.js"></script>
+    <script src="js/dynamic-repeat.js"></script>
+    <script src="js/print-form-to-screen.js"></script>
+    <script src="js/clipboard.js"></script>
+    <!-- <script src="js/footer.js"></script> -->
+
+
+</body>
+</html>
