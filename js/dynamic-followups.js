@@ -1,80 +1,80 @@
 (function () {
-    window.initDynamicFollowups = function (questions, formContainer) {
-      questions.forEach(mainQ => {
-        if (mainQ.type === 'radio' && mainQ.followup) {
-          const radioInputs = formContainer.querySelectorAll(`input[name="${mainQ.id}"]`);
-          const container = formContainer.querySelector(`#group-${mainQ.id}`);
-  
-          radioInputs.forEach(input => {
-            input.addEventListener('change', () => {
-              // Remove any existing followup content
-              const existing = container.querySelector(`.followup-group[data-parent="${mainQ.id}"]`);
-              if (existing) existing.remove();
-  
-              // If the selected value matches the trigger, show follow-up
-              if (input.value === mainQ.followup.when) {
-                const followupGroup = document.createElement('div');
-                followupGroup.classList.add('followup-group');
-                followupGroup.setAttribute('data-parent', mainQ.id);
-  
-                mainQ.followup.questions.forEach(fq => {
-                  const qDiv = document.createElement('div');
-                  qDiv.classList.add('form-group');
-                  qDiv.id = `group-${fq.id}`;
-  
-                  const label = document.createElement('label');
-                  label.textContent = fq.label;
-                  label.setAttribute('for', fq.id);
-  
-                  let inputElement;
-  
-                  if (fq.type === 'textarea') {
-                    inputElement = document.createElement('textarea');
-                  } else if (fq.type === 'radio' && fq.options) {
-                    inputElement = document.createElement('div');
-                    fq.options.forEach(opt => {
-                      const radio = document.createElement('input');
-                      radio.type = 'radio';
-                      radio.name = fq.id;
-                      radio.value = opt;
-                      radio.id = `${fq.id}_${opt}`;
-  
-                      const radioLabel = document.createElement('label');
-                      radioLabel.setAttribute('for', radio.id);
-                      radioLabel.textContent = opt;
-                      radioLabel.style.marginRight = '1rem';
-  
-                      inputElement.appendChild(radio);
-                      inputElement.appendChild(radioLabel);
-                    });
-                  } else {
-                    inputElement = document.createElement('input');
-                    inputElement.type = fq.type;
-                  }
-  
-                  inputElement.id = fq.id;
-                  inputElement.name = fq.id;
-                  inputElement.classList.add('form-control');
-                  if (fq.type !== 'radio') {
-                    inputElement.placeholder = fq.label;
-                  }
-  
-                  qDiv.appendChild(label);
-                  qDiv.appendChild(inputElement);
-                  followupGroup.appendChild(qDiv);
-                });
-  
-                container.appendChild(followupGroup);
+  window.initDynamicRepeats = function (questions, formContainer) {
+    questions.forEach(mainQ => {
+      if (mainQ.type === 'select' && mainQ.repeat && Array.isArray(mainQ.repeat.questions)) {
+        const controller = formContainer.querySelector(`#${mainQ.id}`);
+        const parentGroup = formContainer.querySelector(`#group-${mainQ.id}`);
+        const repeatWrapper = document.createElement('div');
+        repeatWrapper.classList.add('repeat-wrapper');
+        parentGroup.appendChild(repeatWrapper);
 
-                // Animate in
-                requestAnimationFrame(() => {
-                  followupGroup.classList.add('show');
-                });
-                              }
+        // Use the entryLabel provided in the question object, or default to "Entry"
+        const customLabel = mainQ.repeat.entryLabel || 'Entry';
+
+        controller.addEventListener('change', () => {
+          repeatWrapper.innerHTML = ''; // Clear previous repeats
+
+          const count = parseInt(controller.value);
+          if (isNaN(count) || count < 1) return;
+
+          for (let i = 0; i < count; i++) {
+            const setContainer = document.createElement('div');
+            setContainer.classList.add('repeat-set');
+            repeatWrapper.appendChild(setContainer);
+
+            // Trigger animation after DOM render
+            requestAnimationFrame(() => {
+              setContainer.classList.add('show');
             });
-          });
-        }
-      });
-    };
-  })();
-  
+            setContainer.setAttribute('data-index', i);
+
+            // Create a heading for the repeat set using customLabel
+            const heading = document.createElement('h4');
+            heading.textContent = `${customLabel} ${i + 1}`;
+            heading.classList.add('repeat-heading');
+            setContainer.appendChild(heading);
+
+            // Create each field defined in the repeat.questions array
+            mainQ.repeat.questions.forEach(template => {
+              const qId = `${template.id}_${i}`;
+              const group = document.createElement('div');
+              group.classList.add('form-group');
+              group.id = `group-${qId}`;
+
+              const label = document.createElement('label');
+              label.setAttribute('for', qId);
+              label.textContent = template.label;
+
+              let input;
+              if (template.type === 'textarea') {
+                input = document.createElement('textarea');
+              } else if (template.type === 'select' && template.options) {
+                input = document.createElement('select');
+                template.options.forEach(opt => {
+                  const option = document.createElement('option');
+                  option.value = opt;
+                  option.textContent = opt;
+                  input.appendChild(option);
+                });
+              } else {
+                input = document.createElement('input');
+                input.type = template.type;
+              }
+
+              input.id = qId;
+              input.name = qId;
+              input.classList.add('form-control');
+              if (template.type !== 'select') input.placeholder = template.label;
+
+              group.appendChild(label);
+              group.appendChild(input);
+              setContainer.appendChild(group);
+            });
+
+            repeatWrapper.appendChild(setContainer);
+          }
+        });
+      }
+    });
+  };
+})();
