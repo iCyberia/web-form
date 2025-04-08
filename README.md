@@ -3,21 +3,12 @@
 A lightweight, front-end framework for rendering dynamic forms and capturing user input. This setup uses vanilla JavaScript to load template-specific questions, present them in a modern form layout, and provide helpers like copy-to-clipboard, conditional follow-ups, and repeated sections.
 
 ---
-
-## Table of Contents
-1. [Overview](#overview)  
-2. [Features](#features)  
-3. [Project Structure](#project-structure)  
-4. [Usage](#usage)  
-5. [Customization](#customization)  
-
----
 ![Screenshot of light mode](i/Screenshot-light.png)
 ![Screenshot of dark mode](i/Screenshot-dark.png)
 
 ## Overview
 
-**Framework 2.3** is a single-page JavaScript application that dynamically loads different “templates” (configurations of questions) to render custom forms. It provides:
+**Web-Form Framework 2.3** is a single-page JavaScript application that dynamically loads different “templates” (configurations of questions) to render custom forms. It provides:
 - A central `index.htm` that hosts the layout.
 - A small set of JavaScript modules to handle menu toggling, dynamic form rendering, conditional follow-up questions, repeated fields, and copying data from the form.
 - A structure for “templates” (JavaScript files in the `templates/` folder) that define a global `templateQuestions` array to power each form.
@@ -68,8 +59,13 @@ This approach lets you add or remove templates without changing core application
   - Observes radio inputs with `followup` data and injects additional questions based on a chosen answer.
 
 - **js/dynamic-repeat.js**  
-  - For select-type inputs that specify a `repeat` object, it repeats a group of sub-questions as many times as the user selects.
-
+  - For select-type inputs that specify a `repeat` object, it repeats a group of sub-questions as many times as the user selects.Repeating questions should be formatted as follows:
+```
+  { id: 'question4', label: 'Select a number:', type: 'select', options: ['0', '1', '2', '3', '4', '5'],
+        repeat: { entryLabel: 'Child', questions: [
+            { id: 'childName', label: 'Child Name', type: 'text' },
+            { id: 'childAge', label: 'Child Age', type: 'text' }]}}
+```
 - **js/print-form-to-screen.js**  
   - Renders a “Copy Form Data” button which, when clicked, collects all answers into text blocks (limited lines per block) and provides a copy button for each block.
 
